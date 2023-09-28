@@ -1,5 +1,6 @@
 package com.example.core.domain.team.entity;
 
+import com.example.core.domain.enrollment.entity.Enrollment;
 import com.example.core.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -17,10 +18,6 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false)
     private String name;
-
-    @Builder.Default
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Member> members = new ArrayList<>();
 }

@@ -6,7 +6,7 @@ import lombok.Builder;
 @Builder
 public record MemberCreateRequest(
         String name,
-        int age
+        byte age
 ) {
     public Member toEntity() {
         return Member.builder()

@@ -1,14 +1,13 @@
 package com.example.api.domain.member.controller;
 
+import com.example.api.domain.team.model.TeamResponse;
 import com.example.core.domain.member.entity.Member;
 import com.example.api.domain.member.model.MemberCreateRequest;
 import com.example.api.domain.member.service.MemberService;
+import com.example.core.domain.team.entity.Team;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +28,26 @@ public class MemberController {
         List<Member> members = memberService.findAll();
 
         return ResponseEntity.ok(members);
+    }
+
+    @GetMapping("/members/{id}")
+    public ResponseEntity<Member> findById(@PathVariable Long id) {
+        Member member = memberService.findById(id);
+
+        return ResponseEntity.ok(member);
+    }
+
+    @GetMapping("/members/{id}/teams")
+    public ResponseEntity<List<TeamResponse>> findTeamById(@PathVariable Long id) {
+        List<TeamResponse> teams = memberService.findAllTeamsById(id);
+
+        return ResponseEntity.ok(teams);
+    }
+
+    @PatchMapping("/members/{id}/teams")
+    public ResponseEntity<Team> joinTeam(@PathVariable Long id, @RequestParam(value = "teamId") Long teamId) {
+        Team createdTeam = memberService.joinTeam(id, teamId);
+
+        return ResponseEntity.ok(createdTeam);
     }
 }
