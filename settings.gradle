@@ -1,0 +1,5 @@
+rootProject.name = 'Springboot-Multimodules'
+include 'module-api'
+include 'module-core'
+include 'module-flyway'
+
