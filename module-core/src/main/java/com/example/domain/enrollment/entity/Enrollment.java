@@ -1,5 +1,6 @@
 package com.example.domain.enrollment.entity;
 
+import com.example.common.entity.BaseEntity;
 import com.example.domain.member.entity.Member;
 import com.example.domain.team.entity.Team;
 import jakarta.persistence.*;
@@ -8,7 +9,7 @@ import lombok.*;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Enrollment {
+public class Enrollment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
