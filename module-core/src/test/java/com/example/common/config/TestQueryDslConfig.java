@@ -1,7 +1,5 @@
-package com.codingbottle.common.config;
+package com.example.common.config;
 
-import com.codingbottle.domain.quiz.repo.QuizQueryRepository;
-import com.codingbottle.domain.quiz.repo.UserQuizQueryRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -18,15 +16,5 @@ public class TestQueryDslConfig {
     @Bean
     public JPAQueryFactory jpaQueryFactory() {
         return new JPAQueryFactory(entityManager);
-    }
-
-    @Bean
-    public QuizQueryRepository quizRepository() {
-        return new QuizQueryRepository(jpaQueryFactory());
-    }
-
-    @Bean
-    public UserQuizQueryRepository userQuizRepository() {
-        return new UserQuizQueryRepository(jpaQueryFactory());
     }
 }

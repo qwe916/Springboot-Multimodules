@@ -1,2 +1,7 @@
-package com.example;public class CoreApplicationTest {
+package com.example;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class CoreApplicationTest {
 }
