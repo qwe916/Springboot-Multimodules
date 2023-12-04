@@ -19,4 +19,12 @@ public class Member extends BaseEntity {
 
     @Column(nullable = false)
     private byte age;
+
+    public void updateAge(byte age) {
+        this.age = age;
+    }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
 }

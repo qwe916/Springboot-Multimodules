@@ -1,9 +1,9 @@
 package com.example.domain.member.controller;
 
 import com.example.api.domain.member.model.MemberCreateRequest;
-import com.example.api.domain.member.service.MemberService;
 import com.example.api.domain.team.model.TeamResponse;
 import com.example.domain.member.entity.Member;
+import com.example.domain.member.service.MemberService;
 import com.example.domain.team.entity.Team;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
