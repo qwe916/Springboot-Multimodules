@@ -63,6 +63,7 @@ class TransactionTest {
     }
 
     @Test
+    @Transactional(propagation = Propagation.NEVER)
     void 트랜잭션_전파_MANDATORY_테스트() {
         // propagation = Propagation.MANDATORY 일 경우 트랜잭션이 없으면 예외가 발생한다.
         Member member = memberService.create(MemberCreateRequest.builder()
@@ -74,5 +75,21 @@ class TransactionTest {
         assertThrows(RuntimeException.class, () -> {
             memberService.delete(member);
         });
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    void 트랜잭션_READONLY_테스트() {
+        Member member = memberService.create(MemberCreateRequest.builder()
+                .name("홍길동")
+                .age((byte) 23)
+                .build());
+        // readOnly = true 일 경우 트랜잭션을 읽기 전용으로 사용한다.
+        memberService.getAndUpdate(member.getId());
+        // 수정이 되어도 flush가 일어나지 않아 db에 저장되지 않는다.
+        // 따라서 아래 assertThat에서는 수정된 값이 아닌 초기값이 출력된다.
+        Member isUpdatedMember = memberService.findById(member.getId());
+
+        assertThat(isUpdatedMember.getName()).isEqualTo("홍길동");
     }
 }

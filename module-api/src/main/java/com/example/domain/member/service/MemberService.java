@@ -8,7 +8,9 @@ import com.example.domain.enrollment.entity.Enrollment;
 import com.example.domain.member.entity.Member;
 import com.example.domain.member.repository.MemberRepository;
 import com.example.domain.team.entity.Team;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final EnrollmentService enrollmentService;
     private final TeamService teamService;
+    private final EntityManager entityManager;
 
     @Transactional
     public Member create(MemberCreateRequest request) {
@@ -84,5 +87,14 @@ public class MemberService {
     @Transactional(propagation = Propagation.MANDATORY)
     public void delete(Member member) {
         memberRepository.delete(member);
+    }
+
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+    public Member getAndUpdate(Long id) {
+        Session session = entityManager.unwrap(Session.class);
+        session.setHibernateFlushMode(org.hibernate.FlushMode.MANUAL);
+        Member member = memberRepository.findById(id).orElseThrow();
+        member.updateName("홍길동2");
+        return member;
     }
 }
