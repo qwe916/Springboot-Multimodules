@@ -21,8 +21,12 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
+        cache:
+          use_second_level_cache: true
         dialect: org.hibernate.dialect.MySQLDialect
         default_batch_fetch_size: ${chunkSize:100}
         jdbc.batch_size: 20
         order_inserts: true
         order_updates: true
+        generate_statistics: true
+
